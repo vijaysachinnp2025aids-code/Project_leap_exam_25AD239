@@ -1,0 +1,124 @@
+### =====================================================
+### USER SERVICE
+### =====================================================
+
+### 1. Create User
+POST http://localhost:8080/api/users
+Content-Type: application/json
+
+{
+  "name": "Vijay",
+  "email": "vijay@gmail.com",
+  "phone": "9876543210"
+}
+
+
+### 2. Get All Users
+GET http://localhost:8080/api/users
+
+
+### 3. Get User By ID
+GET http://localhost:8080/api/users/1
+
+
+### 4. Update User
+PUT http://localhost:8080/api/users/2
+Content-Type: application/json
+
+{
+  "name": "Vijay Kumar",
+  "email": "vijaykumar@gmail.com",
+  "phone": "9876543211"
+}
+
+
+### 5. Delete User
+DELETE http://localhost:8080/api/users/1
+
+
+
+### =====================================================
+### HELPER SERVICE
+### =====================================================
+
+### 6. Create Helper
+POST http://localhost:8080/api/helpers
+Content-Type: application/json
+
+{
+  "name": "Vikram",
+  "phone": "9876543212",
+  "available": true
+}
+
+
+### 7. Get All Helpers
+GET http://localhost:8080/api/helpers
+
+
+### 8. Get Helper By ID
+GET http://localhost:8080/api/helpers/1
+
+
+### 9. Update Helper
+PUT http://localhost:8080/api/helpers/2
+Content-Type: application/json
+
+{
+  "name": "varun",
+  "phone": "1234567890",
+  "available": true
+}
+
+
+### 10. Delete Helper
+DELETE http://localhost:8080/api/helpers/1
+
+
+
+### =====================================================
+### ASSISTANT REQUEST SERVICE
+### =====================================================
+
+### 11. Create Assistant Request
+POST http://localhost:8080/api/requests
+Content-Type: application/json
+
+{
+  "pickupPoint": "Main Gate",
+  "startTime": "2026-09-28T10:00:00",
+  "endTime": "2026-09-28T10:30:00",
+  "assistanceType": "Wheelchair"
+}
+
+
+### 12. Get All Assistant Requests
+GET http://localhost:8080/api/requests
+
+
+### 13. Get Assistant Request By ID
+GET http://localhost:8080/api/requests/1
+
+
+### 14. Update Assistant Request
+PUT http://localhost:8080/api/requests/1
+Content-Type: application/json
+
+{
+  "pickupPoint": "Library",
+  "startTime": "2026-09-28T11:00:00",
+  "endTime": "2026-09-28T11:30:00",
+  "assistanceType": "Wheelchair"
+}
+
+
+### 15. Complete Request
+PUT http://localhost:8080/api/requests/1/complete
+
+
+### 16. Cancel Request
+PUT http://localhost:8080/api/requests/1/cancel
+
+
+### 17. Delete Assistant Request
+DELETE http://localhost:8080/api/requests/1

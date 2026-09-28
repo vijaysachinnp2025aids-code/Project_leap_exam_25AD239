@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>TransitAssist</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header>
+    <h1>TransitAssist</h1>
+    <p>Accessible Transit Assistance Booking</p>
+</header>
+
+<div class="container">
+
+    <!-- USER SECTION -->
+    <section class="card">
+
+        <h2>User</h2>
+
+        <form id="userForm">
+
+            <input
+                    type="text"
+                    id="userName"
+                    placeholder="Name"
+                    required
+            >
+
+            <input
+                    type="email"
+                    id="userEmail"
+                    placeholder="Email"
+                    required
+            >
+
+            <input
+                    type="text"
+                    id="userPhone"
+                    placeholder="Phone"
+                    required
+            >
+
+            <button type="submit">
+                Add User
+            </button>
+
+        </form>
+
+        <button onclick="loadUsers()" class="secondary">
+            View Users
+        </button>
+
+        <div id="userList"></div>
+
+    </section>
+
+
+    <!-- HELPER SECTION -->
+    <section class="card">
+
+        <h2>Helper</h2>
+
+        <form id="helperForm">
+
+            <input
+                    type="text"
+                    id="helperName"
+                    placeholder="Helper Name"
+                    required
+            >
+
+            <input
+                    type="text"
+                    id="helperPhone"
+                    placeholder="Phone"
+                    required
+            >
+
+            <label class="checkbox">
+                <input
+                        type="checkbox"
+                        id="helperAvailable"
+                        checked
+                >
+                Available
+            </label>
+
+            <button type="submit">
+                Add Helper
+            </button>
+
+        </form>
+
+        <button onclick="loadHelpers()" class="secondary">
+            View Helpers
+        </button>
+
+        <div id="helperList"></div>
+
+    </section>
+
+
+    <!-- ASSISTANCE REQUEST SECTION -->
+    <section class="card">
+
+        <h2>Request Assistance</h2>
+
+        <form id="requestForm">
+
+            <input
+                    type="text"
+                    id="pickupPoint"
+                    placeholder="Pickup Point"
+                    required
+            >
+
+            <label>Start Time</label>
+
+            <input
+                    type="datetime-local"
+                    id="startTime"
+                    required
+            >
+
+            <label>End Time</label>
+
+            <input
+                    type="datetime-local"
+                    id="endTime"
+                    required
+            >
+
+            <input
+                    type="text"
+                    id="assistanceType"
+                    placeholder="Assistance Type (Wheelchair, Escort...)"
+                    required
+            >
+
+            <button type="submit">
+                Request Assistance
+            </button>
+
+        </form>
+
+        <button onclick="loadRequests()" class="secondary">
+            View Requests
+        </button>
+
+        <div id="requestList"></div>
+
+    </section>
+
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>
