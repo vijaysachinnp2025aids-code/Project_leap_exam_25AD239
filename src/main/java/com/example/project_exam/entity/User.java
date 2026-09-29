@@ -1,45 +1,57 @@
 package com.example.project_exam.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
+@Table(name = "users")
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank(message = "Name is required")
     private String name;
+
+    @NotBlank(message = "Email is required")
+    @Email(message = "Enter a valid email address")
     private String email;
+
+    @NotBlank(message = "Phone number is required")
+    @Pattern(
+            regexp = "^[0-9]{10}$",
+            message = "Phone number must be exactly 10 digits"
+    )
     private String phone;
 
+    // ONE USER -> MANY ASSISTANCE REQUESTS
+    @OneToMany(
+            mappedBy = "user",
+            cascade = CascadeType.ALL
+    )
+    @JsonIgnore
+    private List<AssistantRequest> assistanceRequests =
+            new ArrayList<>();
+
+    // Default constructor
     public User() {
     }
 
-    public User(String email, String phone, Long id, String name) {
-        this.email = email;
-        this.phone = phone;
+    // Getters and Setters
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
         this.id = id;
-        this.name = name;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     public String getName() {
@@ -50,11 +62,28 @@ public class User {
         this.name = name;
     }
 
-    public Long getId() {
-        return id;
+    public String getEmail() {
+        return email;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public List<AssistantRequest> getAssistanceRequests() {
+        return assistanceRequests;
+    }
+
+    public void setAssistanceRequests(
+            List<AssistantRequest> assistanceRequests) {
+        this.assistanceRequests = assistanceRequests;
     }
 }

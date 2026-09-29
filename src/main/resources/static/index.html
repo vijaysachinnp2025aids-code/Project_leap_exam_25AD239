@@ -3,163 +3,67 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>TransitAssist</title>
-
+    <title>TransitAssist | Users and Helpers</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        .page-nav { display:flex; justify-content:center; gap:10px; flex-wrap:wrap; padding:14px; background:#fff; border-bottom:1px solid #ddd; }
+        .page-nav a { display:inline-block; padding:11px 20px; border-radius:8px; color:#333; background:#e5e7eb; font-weight:bold; text-decoration:none; }
+        .page-nav a:hover, .page-nav a.active { color:#fff; background:#1769aa; }
+        .field { margin:14px 0; }
+        .field label { display:block; margin-bottom:7px; font-weight:bold; }
+        .field input, .field select { width:100%; padding:12px; border:1px solid #ccc; border-radius:7px; }
+        .notice { margin-top:12px; white-space:pre-line; }
+    </style>
 </head>
-
 <body>
+<header><h1>TransitAssist</h1><p>Accessible Transit Assistance System</p></header>
 
-<header>
-    <h1>TransitAssist</h1>
-    <p>Accessible Transit Assistance Booking</p>
-</header>
+<nav class="page-nav" aria-label="Project pages">
+    <a class="active" href="/">Users and Helpers</a>
+    <a href="/assistance-requests.html">Assistance Requests</a>
+</nav>
 
-<div class="container">
-
-    <!-- USER SECTION -->
-    <section class="card">
-
-        <h2>User</h2>
-
-        <form id="userForm">
-
-            <input
-                    type="text"
-                    id="userName"
-                    placeholder="Name"
-                    required
-            >
-
-            <input
-                    type="email"
-                    id="userEmail"
-                    placeholder="Email"
-                    required
-            >
-
-            <input
-                    type="text"
-                    id="userPhone"
-                    placeholder="Phone"
-                    required
-            >
-
-            <button type="submit">
-                Add User
-            </button>
-
-        </form>
-
-        <button onclick="loadUsers()" class="secondary">
-            View Users
-        </button>
-
-        <div id="userList"></div>
-
-    </section>
-
-
-    <!-- HELPER SECTION -->
-    <section class="card">
-
-        <h2>Helper</h2>
-
-        <form id="helperForm">
-
-            <input
-                    type="text"
-                    id="helperName"
-                    placeholder="Helper Name"
-                    required
-            >
-
-            <input
-                    type="text"
-                    id="helperPhone"
-                    placeholder="Phone"
-                    required
-            >
-
-            <label class="checkbox">
-                <input
-                        type="checkbox"
-                        id="helperAvailable"
-                        checked
-                >
-                Available
-            </label>
-
-            <button type="submit">
-                Add Helper
-            </button>
-
-        </form>
-
-        <button onclick="loadHelpers()" class="secondary">
-            View Helpers
-        </button>
-
-        <div id="helperList"></div>
-
-    </section>
-
-
-    <!-- ASSISTANCE REQUEST SECTION -->
-    <section class="card">
-
-        <h2>Request Assistance</h2>
-
-        <form id="requestForm">
-
-            <input
-                    type="text"
-                    id="pickupPoint"
-                    placeholder="Pickup Point"
-                    required
-            >
-
-            <label>Start Time</label>
-
-            <input
-                    type="datetime-local"
-                    id="startTime"
-                    required
-            >
-
-            <label>End Time</label>
-
-            <input
-                    type="datetime-local"
-                    id="endTime"
-                    required
-            >
-
-            <input
-                    type="text"
-                    id="assistanceType"
-                    placeholder="Assistance Type (Wheelchair, Escort...)"
-                    required
-            >
-
-            <button type="submit">
-                Request Assistance
-            </button>
-
-        </form>
-
-        <button onclick="loadRequests()" class="secondary">
-            View Requests
-        </button>
-
-        <div id="requestList"></div>
-
-    </section>
-
+<div class="tabs" role="tablist">
+    <button class="tab active" id="usersTab" role="tab" aria-selected="true" onclick="openTab('userTab', this)">Users</button>
+    <button class="tab" id="helpersTab" role="tab" aria-selected="false" onclick="openTab('helperTab', this)">Helpers</button>
 </div>
 
-<script src="script.js"></script>
+<main>
+    <section id="userTab" class="tab-content active" role="tabpanel" aria-labelledby="usersTab">
+        <div class="card">
+            <h2>Create User</h2>
+            <div class="field"><label for="userName">Name</label><input id="userName" type="text" required></div>
+            <div class="field"><label for="userEmail">Email</label><input id="userEmail" type="email" required></div>
+            <div class="field"><label for="userPhone">Phone</label><input id="userPhone" type="tel" required></div>
+            <button class="primary-btn" onclick="createUser()">Create User</button>
+            <div id="userMessage" class="notice" role="status"></div>
+        </div>
+        <div class="card">
+            <div class="title-row"><h2>Users</h2><button class="refresh-btn" onclick="loadUsers()">Refresh</button></div>
+            <div id="userList"></div>
+        </div>
+    </section>
 
+    <section id="helperTab" class="tab-content" role="tabpanel" aria-labelledby="helpersTab" hidden>
+        <div class="card">
+            <h2>Create Helper</h2>
+            <div class="field"><label for="helperName">Name</label><input id="helperName" type="text" required></div>
+            <div class="field"><label for="helperPhone">Phone</label><input id="helperPhone" type="tel" required></div>
+            <div class="field"><label for="helperAvailable">Availability</label><select id="helperAvailable"><option value="true">Available</option><option value="false">Not available</option></select></div>
+            <button class="primary-btn" onclick="createHelper()">Create Helper</button>
+            <div id="helperMessage" class="notice" role="status"></div>
+        </div>
+        <div class="card">
+            <div class="title-row"><h2>Helpers</h2><button class="refresh-btn" onclick="loadHelpers()">Refresh</button></div>
+            <div id="helperList"></div>
+        </div>
+        <div class="card">
+            <h2>Helper Workload</h2>
+            <div class="field"><label for="helperSelect">Select Helper</label><select id="helperSelect" onchange="loadHelperWorkload()"><option value="">Select a helper</option></select></div>
+            <div id="workloadList"></div>
+        </div>
+    </section>
+</main>
+<script src="users-helpers.js"></script>
 </body>
 </html>

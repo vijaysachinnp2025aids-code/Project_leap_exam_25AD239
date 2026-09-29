@@ -1,29 +1,43 @@
 package com.example.project_exam.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-@Entity
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 
+import java.util.ArrayList;
+import java.util.List;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+@Entity
+@Table(name = "helpers")
 public class Helper {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank(message = "Helper name is required")
     private String name;
-    private String phone;
-    private boolean available;
 
+    @NotBlank(message = "Phone number is required")
+    @Pattern(
+            regexp = "^[0-9]{10}$",
+            message = "Phone number must be exactly 10 digits"
+    )
+    private String phone;
+
+    private boolean available = true;
+
+    // ONE HELPER -> MANY ASSISTANCE REQUESTS
+    @OneToMany(mappedBy = "helper")
+    @JsonIgnore
+    private List<AssistantRequest> assistanceRequests =
+            new ArrayList<>();
+
+    // Default constructor
     public Helper() {
     }
 
-    public Helper(Long id, boolean available, String phone, String name) {
-        this.id = id;
-        this.available = available;
-        this.phone = phone;
-        this.name = name;
-    }
+    // Getters and Setters
 
     public Long getId() {
         return id;
@@ -33,12 +47,12 @@ public class Helper {
         this.id = id;
     }
 
-    public boolean isAvailable() {
-        return available;
+    public String getName() {
+        return name;
     }
 
-    public void setAvailable(boolean available) {
-        this.available = available;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getPhone() {
@@ -49,11 +63,20 @@ public class Helper {
         this.phone = phone;
     }
 
-    public String getName() {
-        return name;
+    public boolean isAvailable() {
+        return available;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setAvailable(boolean available) {
+        this.available = available;
+    }
+
+    public List<AssistantRequest> getAssistanceRequests() {
+        return assistanceRequests;
+    }
+
+    public void setAssistanceRequests(
+            List<AssistantRequest> assistanceRequests) {
+        this.assistanceRequests = assistanceRequests;
     }
 }

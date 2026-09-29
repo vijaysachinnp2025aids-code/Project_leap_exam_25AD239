@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TransitAssist | Assistance Requests</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .page-nav { display:flex; justify-content:center; gap:10px; flex-wrap:wrap; padding:14px; background:#fff; border-bottom:1px solid #ddd; }
+        .page-nav a { display:inline-block; padding:11px 20px; border-radius:8px; color:#333; background:#e5e7eb; font-weight:bold; text-decoration:none; }
+        .page-nav a:hover, .page-nav a.active { color:#fff; background:#1769aa; }
+        .field { margin:14px 0; }
+        .field label { display:block; margin-bottom:7px; font-weight:bold; }
+        .field input, .field select { width:100%; padding:12px; border:1px solid #ccc; border-radius:7px; }
+        .notice { margin-top:12px; white-space:pre-line; }
+    </style>
+</head>
+<body>
+<header><h1>TransitAssist</h1><p>Plan and track accessible transit support</p></header>
+<nav class="page-nav" aria-label="Project pages">
+    <a href="/">Users and Helpers</a>
+    <a class="active" href="/assistance-requests.html">Assistance Requests</a>
+</nav>
+<main class="tab-content active">
+    <section class="card">
+        <h2>Request Transit Assistance</h2>
+        <div class="field"><label for="requestUser">Requesting user</label><select id="requestUser" required><option value="">Loading users...</option></select></div>
+        <div class="field"><label for="pickupPoint">Pickup point</label><input id="pickupPoint" type="text" required></div>
+        <div class="field"><label for="startTime">Start time</label><input id="startTime" type="datetime-local" required></div>
+        <div class="field"><label for="endTime">End time</label><input id="endTime" type="datetime-local" required></div>
+        <div class="field"><label for="assistanceType">Assistance type</label><select id="assistanceType" required>
+            <option value="">Select assistance type</option><option>Wheelchair</option><option>Escort</option><option>Mobility Support</option>
+        </select></div>
+        <button class="primary-btn" id="submitRequest">Request assistance</button>
+        <div id="requestMessage" class="notice" role="status"></div>
+    </section>
+    <section class="card">
+        <div class="title-row"><h2>Assistance Requests</h2><button class="refresh-btn" id="refreshRequests">Refresh</button></div>
+        <div id="requestList"><p>Loading requests...</p></div>
+    </section>
+</main>
+<script src="assistance-requests.js"></script>
+</body>
+</html>
